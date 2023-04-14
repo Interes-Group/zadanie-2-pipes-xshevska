@@ -46,12 +46,22 @@ public class GameLogic extends UniversalAdapter {
         this.mainGame.repaint();
     }
 
+    private void gameRestart() {
+        this.mainGame.remove(this.currentBoard);
+        this.initializeNewBoard(this.currentBoardSize);
+        this.mainGame.add(this.currentBoard);
+        this.updateInformationLabel();
+    }
+
 
     @Override
     public void stateChanged(ChangeEvent e) {
         this.currentBoardSize = ((JSlider) e.getSource()).getValue();
         this.updateInformationLabel();
 
+        this.gameRestart();
+        this.mainGame.setFocusable(true);
+        this.mainGame.requestFocus();
     }
 
 

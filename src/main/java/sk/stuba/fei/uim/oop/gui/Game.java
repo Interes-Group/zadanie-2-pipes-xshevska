@@ -15,7 +15,6 @@ public class Game {
         JFrame frame = new JFrame("WaterPipes!");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(900, 800);
-//        frame.getContentPane().setBackground(new Color(0xE8164A));
 
         frame.setResizable(false);
         frame.setFocusable(true);
@@ -39,18 +38,19 @@ public class Game {
         JButton buttonCheck = new JButton("CHECK WIN");
         buttonCheck.addActionListener(logic);
         buttonCheck.setFocusable(false);
-        buttonCheck.setBackground(Color.cyan);
+        buttonCheck.setBackground(Color.YELLOW);
         bottomMenu.add(buttonCheck);
 
 
         JButton buttonRestart = new JButton("RESTART");
         buttonRestart.addActionListener(logic);
         buttonRestart.setFocusable(false);
-        buttonRestart.setBackground(Color.cyan);
+        buttonRestart.setBackground(Color.YELLOW);
         bottomMenu.add(buttonRestart);
 
 
         JSlider slider = new JSlider(JSlider.HORIZONTAL, 8, 12, 8);
+        slider.setBackground(new Color(0x2AFFC4));
         slider.setMinorTickSpacing(2);
         slider.setMajorTickSpacing(2);
         slider.setSnapToTicks(true);
