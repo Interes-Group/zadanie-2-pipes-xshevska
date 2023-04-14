@@ -12,10 +12,10 @@ public class Game {
     }
 
     private void createAndShowGUI() {
-        JFrame frame = new JFrame("Water Pipe Game!");
+        JFrame frame = new JFrame("WaterPipes!");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(900, 800);
-        frame.getContentPane().setBackground(new Color(0xE8164A));  //0xE8164A
+//        frame.getContentPane().setBackground(new Color(0xE8164A));
 
         frame.setResizable(false);
         frame.setFocusable(true);
