@@ -1,6 +1,7 @@
 package sk.stuba.fei.uim.oop.board;
 
 import sk.stuba.fei.uim.oop.tile.BentPipe;
+import sk.stuba.fei.uim.oop.tile.StartEnd;
 import sk.stuba.fei.uim.oop.tile.StraightPipe;
 import sk.stuba.fei.uim.oop.tile.Tile;
 
@@ -36,7 +37,13 @@ public class Board extends JPanel {
         this.add(this.board[fieldSize / 2 - 1][fieldSize / 2], (fieldSize / 2 - 1) * fieldSize + fieldSize / 2);
         this.add(this.board[fieldSize / 2][fieldSize / 2], (fieldSize / 2) * fieldSize + fieldSize / 2);
 
+        this.board[0][0] = new StartEnd(true);
+        this.remove(0);
+        this.add(this.board[0][0], 0);
 
+//        this.board[fieldSize-1][fieldSize-1] = new StartEnd(false);
+////        this.remove(fieldSize-1);
+//        this.add(this.board[fieldSize-1][fieldSize-1], fieldSize);
 
         // Обновить отображение доски после добавления элементов
         this.revalidate();
