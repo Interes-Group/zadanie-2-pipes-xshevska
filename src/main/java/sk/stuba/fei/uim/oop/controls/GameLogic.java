@@ -33,8 +33,8 @@ public class GameLogic extends UniversalAdapter {
         this.updateInformationLabel();
     }
 
-    private void initializeNewBoard(int dimension) {
-        this.currentBoard = new Board(dimension);
+    private void initializeNewBoard(int fieldSize) {
+        this.currentBoard = new Board(fieldSize);
 //        this.currentBoard.addMouseMotionListener(this);
 //        this.currentBoard.addMouseListener(this);
     }
