@@ -5,6 +5,7 @@ import sk.stuba.fei.uim.oop.board.Board;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
+import java.awt.event.KeyEvent;
 
 public class GameLogic extends UniversalAdapter {
     public static final int FIRST_LEVEL = 1;
@@ -54,6 +55,23 @@ public class GameLogic extends UniversalAdapter {
     }
 
 
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        System.out.println(e);
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_R:
+                this.gameRestart();
+                break;
+            case KeyEvent.VK_ENTER:
+                System.out.println("TO DO");
+                break;
+            case KeyEvent.VK_ESCAPE:
+                this.mainGame.dispose();
+
+        }
+    }
+
     @Override
     public void stateChanged(ChangeEvent e) {
         this.currentBoardSize = ((JSlider) e.getSource()).getValue();
@@ -63,6 +81,5 @@ public class GameLogic extends UniversalAdapter {
         this.mainGame.setFocusable(true);
         this.mainGame.requestFocus();
     }
-
-
+    
 }
