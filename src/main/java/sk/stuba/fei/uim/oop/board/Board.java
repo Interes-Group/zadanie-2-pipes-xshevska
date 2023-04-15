@@ -1,5 +1,7 @@
 package sk.stuba.fei.uim.oop.board;
 
+import sk.stuba.fei.uim.oop.tile.BentPipe;
+import sk.stuba.fei.uim.oop.tile.StraightPipe;
 import sk.stuba.fei.uim.oop.tile.Tile;
 
 import javax.swing.*;
@@ -26,9 +28,19 @@ public class Board extends JPanel {
             }
         }
 
+        this.board[fieldSize / 2][fieldSize / 2] = new StraightPipe();
+        this.board[fieldSize / 2 - 1][fieldSize / 2] = new BentPipe();
 
-        this.board[fieldSize / 2][fieldSize / 2].setPipeType(1); // Set straight pipe
-        this.board[fieldSize / 2 - 1][fieldSize / 2].setPipeType(2); // Set "Г" shaped pipe
+        this.remove((fieldSize / 2 - 1) * fieldSize + fieldSize / 2);
+        this.remove((fieldSize / 2) * fieldSize + fieldSize / 2);
+        this.add(this.board[fieldSize / 2 - 1][fieldSize / 2], (fieldSize / 2 - 1) * fieldSize + fieldSize / 2);
+        this.add(this.board[fieldSize / 2][fieldSize / 2], (fieldSize / 2) * fieldSize + fieldSize / 2);
+
+
+
+        // Обновить отображение доски после добавления элементов
+        this.revalidate();
+        this.repaint();
     }
 
 

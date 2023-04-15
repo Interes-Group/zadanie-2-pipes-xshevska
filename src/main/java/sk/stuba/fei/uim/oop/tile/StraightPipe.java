@@ -1,6 +1,14 @@
 package sk.stuba.fei.uim.oop.tile;
 
-public class StraightPipe {
+import java.awt.*;
 
-
+ //Прямая труба
+public class StraightPipe extends Tile {
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        System.out.println("Drawing StraightPipe");
+        g.setColor(new Color(0x0132FF));
+        g.fillRect(getWidth() / 3, 0, getWidth() / 4 - 5, getHeight());
+    }
 }
