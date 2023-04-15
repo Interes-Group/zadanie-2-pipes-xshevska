@@ -2,10 +2,13 @@ package sk.stuba.fei.uim.oop.controls;
 
 import lombok.Getter;
 import sk.stuba.fei.uim.oop.board.Board;
+import sk.stuba.fei.uim.oop.tile.Tile;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
+import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 
 public class GameLogic extends UniversalAdapter {
     public static final int FIRST_LEVEL = 1;
@@ -36,8 +39,8 @@ public class GameLogic extends UniversalAdapter {
 
     private void initializeNewBoard(int fieldSize) {
         this.currentBoard = new Board(fieldSize);
-//        this.currentBoard.addMouseMotionListener(this);
-//        this.currentBoard.addMouseListener(this);
+        this.currentBoard.addMouseMotionListener(this);
+        this.currentBoard.addMouseListener(this);
     }
 
 
@@ -81,5 +84,17 @@ public class GameLogic extends UniversalAdapter {
         this.mainGame.setFocusable(true);
         this.mainGame.requestFocus();
     }
-    
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+//        System.out.println("MOVED");
+        Component current = this.currentBoard.getComponentAt(e.getPoint());
+        if (!(current instanceof Tile)) {
+            return;
+        }
+        ((Tile) current).setHighlight(true);
+        System.out.println("Должно рисовать");
+        this.currentBoard.repaint();
+    }
+
 }

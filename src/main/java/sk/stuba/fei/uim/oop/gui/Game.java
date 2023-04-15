@@ -59,6 +59,7 @@ public class Game {
         slider.addChangeListener(logic);
         bottomMenu.add(slider);
 
+
         return bottomMenu;
     }
 
