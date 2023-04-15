@@ -2,6 +2,7 @@ package sk.stuba.fei.uim.oop.controls;
 
 import lombok.Getter;
 import sk.stuba.fei.uim.oop.board.Board;
+import sk.stuba.fei.uim.oop.tile.StraightPipe;
 import sk.stuba.fei.uim.oop.tile.Tile;
 
 import javax.swing.*;
@@ -97,4 +98,13 @@ public class GameLogic extends UniversalAdapter {
         this.currentBoard.repaint();
     }
 
+    @Override
+    public void mousePressed(MouseEvent e) {
+        super.mousePressed(e);
+        System.out.println("PRESSSED");
+        Component current = currentBoard.getComponentAt(e.getPoint());
+        if (current instanceof StraightPipe) {
+            ((StraightPipe) current).rotate();
+        }
+    }
 }
