@@ -10,8 +10,7 @@ public class BentPipe extends Tile {
         g.setColor(new Color(0x0B1DE7));
 
         g.fillRect(getWidth() / 3, getHeight() / 4 + 8, getWidth(), getHeight() / 3);
-        g.fillRect(getWidth() / 3, getHeight() / 4 + 10, getWidth() /3, getHeight());
-
+        g.fillRect(getWidth() / 3, getHeight() / 4 + 10, getWidth() / 3, getHeight());
 
     }
 }

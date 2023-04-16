@@ -12,13 +12,13 @@ public class StartEnd extends Tile {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if(this.filledWithWater){
+        if (this.filledWithWater) {
             g.setColor(new Color(0x1E7EEA));
-        }else{
+        } else {
             g.setColor(new Color(0x888181));
         }
-        g.drawOval(getWidth() /6, getHeight() /5, getWidth()/2 + 10, getHeight()/2 + 7);
-        g.fillOval(getWidth() /6, getHeight() /5, getWidth()/2 + 10, getHeight()/2 + 7);
+        g.drawOval(getWidth() / 6, getHeight() / 5, getWidth() / 2 + 10, getHeight() / 2 + 7);
+        g.fillOval(getWidth() / 6, getHeight() / 5, getWidth() / 2 + 10, getHeight() / 2 + 7);
 
 //        g.setColor(new Color(0x0132FF));
         g.fillRect(getWidth() / 3, getHeight() / 4 + 8, getWidth(), getHeight() / 3);

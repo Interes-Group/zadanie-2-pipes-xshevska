@@ -2,7 +2,6 @@ package sk.stuba.fei.uim.oop.controls;
 
 import lombok.Getter;
 import sk.stuba.fei.uim.oop.board.Board;
-import sk.stuba.fei.uim.oop.tile.PipeTile;
 import sk.stuba.fei.uim.oop.tile.Tile;
 
 import javax.swing.*;
@@ -57,7 +56,6 @@ public class GameLogic extends UniversalAdapter {
         this.mainGame.add(this.currentBoard);
         this.updateInformationLabel();
     }
-
 
 
     @Override
