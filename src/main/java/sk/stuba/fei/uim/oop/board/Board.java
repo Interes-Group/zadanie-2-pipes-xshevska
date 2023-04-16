@@ -29,8 +29,8 @@ public class Board extends JPanel {
             }
         }
 
-        this.board[fieldSize / 2][fieldSize / 2] = new StraightPipe();
         this.board[fieldSize / 2 - 1][fieldSize / 2] = new BentPipe();
+        this.board[fieldSize / 2][fieldSize / 2] = new StraightPipe();
 
         this.remove((fieldSize / 2 - 1) * fieldSize + fieldSize / 2);
         this.remove((fieldSize / 2) * fieldSize + fieldSize / 2);
@@ -38,16 +38,23 @@ public class Board extends JPanel {
         this.add(this.board[fieldSize / 2][fieldSize / 2], (fieldSize / 2) * fieldSize + fieldSize / 2);
 
         this.board[0][0] = new StartEnd(true);
-        this.remove(0);
+        this.remove((0) * fieldSize + 0);
         this.add(this.board[0][0], 0);
 
-//        this.board[fieldSize-1][fieldSize-1] = new StartEnd(false);
-////        this.remove(fieldSize-1);
-//        this.add(this.board[fieldSize-1][fieldSize-1], fieldSize);
+        this.board[fieldSize / fieldSize][fieldSize - 1] = new StartEnd(false);
+        this.remove((fieldSize / fieldSize) * fieldSize + fieldSize - 1);
+        this.add(this.board[fieldSize / fieldSize][fieldSize - 1], (fieldSize / fieldSize) * fieldSize + fieldSize - 1);
+
+
+        //6 7
+
+        this.board[fieldSize - 2][fieldSize - 1] = new StraightPipe();
+        this.remove((fieldSize - 2) * fieldSize + fieldSize - 1);
+        this.add(this.board[fieldSize - 2][fieldSize - 1], (fieldSize - 2) * fieldSize + fieldSize - 1);
 
         // Обновить отображение доски после добавления элементов
-        this.revalidate();
-        this.repaint();
+//        this.revalidate();
+//        this.repaint();
     }
 
 
