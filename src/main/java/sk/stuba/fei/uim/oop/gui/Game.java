@@ -14,7 +14,7 @@ public class Game {
     private void createAndShowGUI() {
         JFrame frame = new JFrame("WaterPipes!");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(900, 800);
+        frame.setSize(740, 850);
 
         frame.setResizable(false);
         frame.setFocusable(true);

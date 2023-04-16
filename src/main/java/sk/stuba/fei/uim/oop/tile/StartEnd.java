@@ -17,12 +17,11 @@ public class StartEnd extends Tile {
         }else{
             g.setColor(new Color(0x888181));
         }
-        System.out.println(getWidth() + " toto je sirka");
-        g.drawOval(getWidth() /4, getHeight() /5, getWidth()/2, getHeight()/2+10);
-        g.fillOval(getWidth() /4, getHeight() /5, getWidth()/2, getHeight()/2+10);
+        g.drawOval(getWidth() /6, getHeight() /5, getWidth()/2 + 10, getHeight()/2 + 7);
+        g.fillOval(getWidth() /6, getHeight() /5, getWidth()/2 + 10, getHeight()/2 + 7);
 
 //        g.setColor(new Color(0x0132FF));
-        g.fillRect(getWidth() / 3, getHeight() / 4 + 10, getWidth() / 2 + 18, getHeight() / 4);
+        g.fillRect(getWidth() / 3, getHeight() / 4 + 8, getWidth(), getHeight() / 3);
 
     }
 }
