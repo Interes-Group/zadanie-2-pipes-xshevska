@@ -103,8 +103,8 @@ public class GameLogic extends UniversalAdapter {
         super.mousePressed(e);
         System.out.println("PRESSSED");
         Component current = currentBoard.getComponentAt(e.getPoint());
-        if (current instanceof PipeTile) {
-            ((PipeTile) current).rotate();
+        if (current instanceof Tile) {
+            ((Tile) current).rotate();
         }
     }
 }

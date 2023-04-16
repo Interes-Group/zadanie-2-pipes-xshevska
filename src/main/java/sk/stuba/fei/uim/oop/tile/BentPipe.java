@@ -3,7 +3,7 @@ package sk.stuba.fei.uim.oop.tile;
 
 import java.awt.*;
 
-public class BentPipe extends PipeTile {
+public class BentPipe extends Tile {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

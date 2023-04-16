@@ -3,7 +3,7 @@ package sk.stuba.fei.uim.oop.tile;
 import java.awt.*;
 
  //Прямая труба
-public class StraightPipe extends PipeTile {
+public class StraightPipe extends Tile {
 
     @Override
     protected void paintComponent(Graphics g) {
