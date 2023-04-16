@@ -7,15 +7,19 @@ import sk.stuba.fei.uim.oop.tile.Tile;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Random;
 
 public class Board extends JPanel {
+    Random random;
     private Tile[][] board;
     private int fieldSize;
 
     public Board(int fieldSize) {
         this.fieldSize = fieldSize;
+        this.random = new Random();
         this.initializeBoard(this.fieldSize);
         this.setBackground(new Color(0xE380FF));
+
     }
 
 
@@ -37,24 +41,30 @@ public class Board extends JPanel {
         this.add(this.board[fieldSize / 2 - 1][fieldSize / 2], (fieldSize / 2 - 1) * fieldSize + fieldSize / 2);
         this.add(this.board[fieldSize / 2][fieldSize / 2], (fieldSize / 2) * fieldSize + fieldSize / 2);
 
-        this.board[0][0] = new StartEnd(true);
-        this.remove((0) * fieldSize + 0);
-        this.add(this.board[0][0], 0);
 
-        this.board[fieldSize / fieldSize][fieldSize - 1] = new StartEnd(false);
-        this.remove((fieldSize / fieldSize) * fieldSize + fieldSize - 1);
-        this.add(this.board[fieldSize / fieldSize][fieldSize - 1], (fieldSize / fieldSize) * fieldSize + fieldSize - 1);
+        creatingStart(fieldSize);
+        creatingFinish(fieldSize);
+
+    }
+
+    private void creatingStart(int fieldSize) {
+        int randomRow = random.nextInt(fieldSize);
+        this.board[randomRow][0] = new StartEnd(true);
+        this.remove(randomRow * fieldSize);
+        this.add(this.board[randomRow][0], randomRow * fieldSize);
+    }
 
 
-        //6 7
+    private void creatingFinish(int fieldSize) {
+        int randomRow = random.nextInt(fieldSize);
+        this.board[randomRow][fieldSize - 1] = new StartEnd(false);
 
-        this.board[fieldSize - 2][fieldSize - 1] = new StraightPipe();
-        this.remove((fieldSize - 2) * fieldSize + fieldSize - 1);
-        this.add(this.board[fieldSize - 2][fieldSize - 1], (fieldSize - 2) * fieldSize + fieldSize - 1);
+        this.board[randomRow][fieldSize - 1].rotate();
+        this.board[randomRow][fieldSize - 1].rotate();
 
-        // Обновить отображение доски после добавления элементов
-//        this.revalidate();
-//        this.repaint();
+        this.remove(randomRow * fieldSize + (fieldSize - 1));
+        this.add(this.board[randomRow][fieldSize - 1], randomRow * fieldSize + (fieldSize - 1));
+
     }
 
 

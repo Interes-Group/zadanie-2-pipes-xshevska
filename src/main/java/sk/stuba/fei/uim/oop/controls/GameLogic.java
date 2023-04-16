@@ -92,7 +92,6 @@ public class GameLogic extends UniversalAdapter {
             return;
         }
         ((Tile) current).setHighlight(true);
-        System.out.println("Должно рисовать");
         this.currentBoard.repaint();
     }
 
