@@ -7,6 +7,7 @@ import sk.stuba.fei.uim.oop.tile.Tile;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
@@ -104,4 +105,19 @@ public class GameLogic extends UniversalAdapter {
             ((Tile) current).rotate();
         }
     }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        this.gameRestart();
+        this.mainGame.revalidate();
+        this.mainGame.repaint();
+        this.mainGame.setFocusable(true);
+        this.mainGame.requestFocus();
+    }
+
+    
+
 }
+
+
+

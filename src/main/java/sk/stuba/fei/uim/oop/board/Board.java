@@ -8,6 +8,7 @@ import sk.stuba.fei.uim.oop.tile.Tile;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
+import java.util.stream.IntStream;
 
 public class Board extends JPanel {
     Random random;
@@ -48,22 +49,25 @@ public class Board extends JPanel {
     }
 
     private void creatingStart(int fieldSize) {
-        int randomRow = random.nextInt(fieldSize);
-        this.board[randomRow][0] = new StartEnd(true);
-        this.remove(randomRow * fieldSize);
-        this.add(this.board[randomRow][0], randomRow * fieldSize);
+        int randomStartRow = random.nextInt(fieldSize);
+        this.board[randomStartRow][0] = new StartEnd(true);
+        this.remove(randomStartRow * fieldSize);
+        this.add(this.board[randomStartRow][0], randomStartRow * fieldSize);
     }
 
 
     private void creatingFinish(int fieldSize) {
-        int randomRow = random.nextInt(fieldSize);
-        this.board[randomRow][fieldSize - 1] = new StartEnd(false);
+        int randomFinishRow = random.nextInt(fieldSize);
+        this.board[randomFinishRow][fieldSize - 1] = new StartEnd(false);
 
-        this.board[randomRow][fieldSize - 1].rotate();
-        this.board[randomRow][fieldSize - 1].rotate();
+//        this.board[randomRow][fieldSize - 1].rotate();
+//        this.board[randomRow][fieldSize - 1].rotate();
 
-        this.remove(randomRow * fieldSize + (fieldSize - 1));
-        this.add(this.board[randomRow][fieldSize - 1], randomRow * fieldSize + (fieldSize - 1));
+        IntStream.range(0, 2)
+                .forEach(i -> this.board[randomFinishRow][fieldSize - 1].rotate());
+
+        this.remove(randomFinishRow * fieldSize + (fieldSize - 1));
+        this.add(this.board[randomFinishRow][fieldSize - 1], randomFinishRow * fieldSize + (fieldSize - 1));
 
     }
 
