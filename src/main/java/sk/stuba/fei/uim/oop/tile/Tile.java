@@ -22,7 +22,6 @@ public class Tile extends JPanel {
         repaint();
     }
 
-    //0xFF1FA5
 
     @Override
     protected void paintComponent(Graphics g) {

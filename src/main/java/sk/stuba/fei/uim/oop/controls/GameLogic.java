@@ -115,7 +115,7 @@ public class GameLogic extends UniversalAdapter {
         this.mainGame.requestFocus();
     }
 
-    
+
 
 }
 
