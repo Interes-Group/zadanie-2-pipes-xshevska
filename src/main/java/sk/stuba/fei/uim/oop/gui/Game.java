@@ -8,10 +8,6 @@ import java.awt.*;
 
 public class Game {
     public Game() {
-        createAndShowGUI();
-    }
-
-    private void createAndShowGUI() {
         JFrame frame = new JFrame("WaterPipes!");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(740, 850);

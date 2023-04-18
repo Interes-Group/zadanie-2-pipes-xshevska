@@ -90,6 +90,7 @@ public class GameLogic extends UniversalAdapter {
 //        System.out.println("MOVED");
         Component current = this.currentBoard.getComponentAt(e.getPoint());
         if (!(current instanceof Tile)) {
+            this.currentBoard.repaint();
             return;
         }
         ((Tile) current).setHighlight(true);

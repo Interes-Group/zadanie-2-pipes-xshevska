@@ -13,7 +13,7 @@ import java.util.stream.IntStream;
 
 public class Board extends JPanel {
     private final int fieldSize;
-    Random random;
+    private Random random;
     private Node startNode;
     private Node finishNode;
     private Tile[][] board;
@@ -39,25 +39,26 @@ public class Board extends JPanel {
             }
         }
 
-        this.board[fieldSize / 2 - 1][fieldSize / 2] = new BentPipe();
-        this.board[fieldSize / 2][fieldSize / 2] = new StraightPipe();
-
-        this.remove((fieldSize / 2 - 1) * fieldSize + fieldSize / 2);
-        this.remove((fieldSize / 2) * fieldSize + fieldSize / 2);
-        this.add(this.board[fieldSize / 2 - 1][fieldSize / 2], (fieldSize / 2 - 1) * fieldSize + fieldSize / 2);
-        this.add(this.board[fieldSize / 2][fieldSize / 2], (fieldSize / 2) * fieldSize + fieldSize / 2);
+//        this.board[fieldSize / 2 - 1][fieldSize / 2] = new BentPipe();
+//        this.board[fieldSize / 2][fieldSize / 2] = new StraightPipe();
+//
+//        int ind1 = (fieldSize / 2 - 1) * fieldSize + fieldSize / 2;
+//        int ind2 = (fieldSize / 2) * fieldSize + fieldSize / 2;
+//        this.remove(ind1);
+//        this.remove(ind2);
+//
+//        this.add(this.board[fieldSize / 2 - 1][fieldSize / 2], ind1);
+//        this.add(this.board[fieldSize / 2][fieldSize / 2], ind2);
 
         creatingStart(fieldSize);
         creatingFinish(fieldSize);
 
-
-//        visitedNodes.add(startNode);
         generatePath(startNode, finishNode);
     }
 
 
     private void generatePath(Node current, Node finishNode) {
-        if (current == null || this.visitedNodes.contains(current)) {
+        if (isValidMove(current) && this.visitedNodes.contains(current)) {
             return;
         }
         this.visitedNodes.add(current);
@@ -66,24 +67,16 @@ public class Board extends JPanel {
         Collections.shuffle(directions);
 
         for (Direction currentDirection : directions) {
-//        int randomIndex = random.nextInt(4);
-            //Генерация случайного числа от 0 до 3 (включительно)
-//        Direction currentDirection = directions.get(randomIndex);
-//        System.out.println("This is random index " + randomIndex + "        " + directions.get(randomIndex));
-
-//
             Node next = move(current, currentDirection);
-
             if (isValidMove(next) && !this.visitedNodes.contains(next)) {
-                if (next.x == finishNode.x && next.y == finishNode.y) {
-                    connectNodes(current, next);
-                    return;
-                }
                 connectNodes(current, next);
-                generatePath(next, finishNode);
-                if (this.visitedNodes.contains(next)) {
+                if (next.x == finishNode.x && next.y == finishNode.y) {
                     return;
                 }
+                generatePath(next, finishNode);
+//                if (this.visitedNodes.contains(next)) {
+//                    return;
+//                }
             }
         }
 
