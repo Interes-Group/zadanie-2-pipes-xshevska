@@ -1,8 +1,6 @@
 package sk.stuba.fei.uim.oop.board;
 
-import sk.stuba.fei.uim.oop.tile.BentPipe;
 import sk.stuba.fei.uim.oop.tile.StartEnd;
-import sk.stuba.fei.uim.oop.tile.StraightPipe;
 import sk.stuba.fei.uim.oop.tile.Tile;
 
 import javax.swing.*;
@@ -18,6 +16,9 @@ public class Board extends JPanel {
     private Node finishNode;
     private Tile[][] board;
     private Set<Node> visitedNodes;
+
+    private List<Node> path;
+    private List<Node> correctPath;
 
 
     public Board(int fieldSize) {
@@ -39,49 +40,82 @@ public class Board extends JPanel {
             }
         }
 
-//        this.board[fieldSize / 2 - 1][fieldSize / 2] = new BentPipe();
-//        this.board[fieldSize / 2][fieldSize / 2] = new StraightPipe();
-//
-//        int ind1 = (fieldSize / 2 - 1) * fieldSize + fieldSize / 2;
-//        int ind2 = (fieldSize / 2) * fieldSize + fieldSize / 2;
-//        this.remove(ind1);
-//        this.remove(ind2);
-//
-//        this.add(this.board[fieldSize / 2 - 1][fieldSize / 2], ind1);
-//        this.add(this.board[fieldSize / 2][fieldSize / 2], ind2);
 
         creatingStart(fieldSize);
         creatingFinish(fieldSize);
-
+        this.path = new ArrayList<>();
+        this.correctPath = new ArrayList<>();
         generatePath(startNode, finishNode);
+
+        System.out.println("Konceny put: " );
+        this.correctPath.stream().forEach((e) -> {
+            System.out.print(e.x + " " + e.y + ", ");
+
+        });
     }
 
 
-    private void generatePath(Node current, Node finishNode) {
-        if (isValidMove(current) && this.visitedNodes.contains(current)) {
-            return;
+// аботающий
+    private boolean generatePath(Node current, Node finishNode) {
+        if (!isValidMove(current) || this.visitedNodes.contains(current)) {
+            return false;
         }
         this.visitedNodes.add(current);
+
+        if (current.x == finishNode.x && current.y == finishNode.y) {
+            return true;
+        }
 
         List<Direction> directions = Arrays.asList(Direction.values());
         Collections.shuffle(directions);
 
         for (Direction currentDirection : directions) {
             Node next = move(current, currentDirection);
+
             if (isValidMove(next) && !this.visitedNodes.contains(next)) {
-                connectNodes(current, next);
-                if (next.x == finishNode.x && next.y == finishNode.y) {
-                    return;
+//                connectNodes(current, next);
+
+                if (generatePath(next, finishNode)) {
+                    connectNodes(current, next);
+                    return true;
                 }
-                generatePath(next, finishNode);
-//                if (this.visitedNodes.contains(next)) {
-//                    return;
-//                }
             }
         }
 
-
+        return false;
     }
+
+    //старый первый
+//    private boolean generatePath(Node current, Node finishNode) {
+//
+//
+//        if (isValidMove(current) && this.visitedNodes.contains(current)) {
+//            return false;
+//        }
+//        this.visitedNodes.add(current);
+//
+//        List<Direction> directions = Arrays.asList(Direction.values());
+//        Collections.shuffle(directions);
+//
+//        for (Direction currentDirection : directions) {
+//            Node next = move(current, currentDirection);
+//
+//            if (isValidMove(next) && !this.visitedNodes.contains(next)) {
+//
+//                connectNodes(current, next);
+//
+//                if (next.x == finishNode.x && next.y == finishNode.y) {
+//                    return true;
+//                }
+//                generatePath(next, finishNode);
+//                return true;
+//
+//            }
+//
+//        }
+//
+//        return false;
+//    }
 
 
     private Node move(Node current, Direction direction) {
@@ -111,8 +145,31 @@ public class Board extends JPanel {
     }
 
 
+//    private void connectNodes(Node current, Node next) {
+//        this.path.add(current);
+//        this.path.add(next);
+//        if (this.correctPath != null && this.path.contains(next)) {
+//            this.correctPath.add(current);
+//            this.correctPath.add(next);
+//        }
+//    }
+
+    public void drawPath(Graphics g) {
+        if (this.correctPath == null) {
+            return;
+        }
+
+        g.setColor(Color.YELLOW);
+        for (int i = 0; i < this.correctPath.size() - 1; i += 2) {
+            Node node1 = this.correctPath.get(i);
+            Node node2 = this.correctPath.get(i + 1);
+            g.drawLine(node1.x, node1.y, node2.x, node2.y);
+        }
+    }
+
     private void connectNodes(Node current, Node next) {
         System.out.println(current.x + " " + current.y);
+        this.correctPath.add(current);
         board[current.x][current.y].setBackground(Color.RED);
         board[next.x][next.y].setBackground(Color.MAGENTA);
     }
