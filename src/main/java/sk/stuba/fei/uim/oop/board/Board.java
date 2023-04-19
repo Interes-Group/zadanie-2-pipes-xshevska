@@ -1,6 +1,7 @@
 package sk.stuba.fei.uim.oop.board;
 
 import sk.stuba.fei.uim.oop.tile.BentPipe;
+import sk.stuba.fei.uim.oop.tile.StartEnd;
 import sk.stuba.fei.uim.oop.tile.Tile;
 
 import javax.swing.*;
@@ -37,8 +38,8 @@ public class Board extends JPanel {
 //                this.add(this.board[i][j]);
             }
         }
-        creatingStart(fieldSize);
-        creatingFinish(fieldSize);
+
+        createStartAndFinish(fieldSize);
         generatePath(startNode, finishNode);
 
 
@@ -48,12 +49,22 @@ public class Board extends JPanel {
         });
         System.out.println();
 
+
+        Node startNode = correctPath.get(correctPath.size() - 1);
+        Node finishNode = correctPath.get(0);
+
         for (int i = 0; i < fieldSize; i++) {
             for (int j = 0; j < fieldSize; j++) {
                 boolean isBentPipe = false;
                 for (Node node : correctPath) {
                     if (i == node.x && j == node.y) {
-                        this.board[i][j] = new BentPipe();
+                        if (node == startNode) {
+                            this.board[i][j] = new StartEnd(true);
+                        } else if (node == finishNode) {
+                            this.board[i][j] = new StartEnd(false);
+                        } else {
+                            this.board[i][j] = new BentPipe();
+                        }
                         isBentPipe = true;
                         break;
                     }
@@ -66,8 +77,15 @@ public class Board extends JPanel {
         }
 
 
-
     }
+
+    private void createStartAndFinish(int fieldSize) {
+        int randomStartRow = random.nextInt(fieldSize);
+        int randomFinishRow = random.nextInt(fieldSize);
+        this.startNode = new Node(randomStartRow, 0);
+        this.finishNode = new Node(randomFinishRow, fieldSize - 1);
+    }
+
 
 
     private boolean generatePath(Node current, Node finishNode) {
