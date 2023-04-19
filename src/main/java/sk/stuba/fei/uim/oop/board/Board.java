@@ -12,12 +12,12 @@ import java.util.*;
 
 public class Board extends JPanel {
     private final int fieldSize;
-    private Random random;
+    private final Random random;
+    private final Set<Node> visitedNodes;
+    private final List<Node> correctPath;
     private Node startNode;
     private Node finishNode;
     private Tile[][] board;
-    private Set<Node> visitedNodes;
-    private List<Node> correctPath;
 
 
     public Board(int fieldSize) {
@@ -31,68 +31,71 @@ public class Board extends JPanel {
 
 
     private void initializeBoard(int fieldSize) {
-        this.board = new Tile[fieldSize][fieldSize];
+        this.board = createBoard(fieldSize);
         this.setLayout(new GridLayout(fieldSize, fieldSize));
-        for (int i = 0; i < fieldSize; i++) {
-            for (int j = 0; j < fieldSize; j++) {
-                this.board[i][j] = new Tile();
-            }
-        }
-
         createStartAndFinish(fieldSize);
         generatePath(startNode, finishNode);
+        printPath();
+        fillBoardWithPath();
+    }
 
 
-        System.out.println("Konceny put: ");
-        this.correctPath.stream().forEach((e) -> {
-            System.out.print(e.x + " " + e.y + ", ");
-        });
-        System.out.println();
-        
-        Node startNode = correctPath.get(correctPath.size() - 1);
-        Node finishNode = correctPath.get(0);
-
-
+    private Tile[][] createBoard(int fieldSize) {
+        Tile[][] board = new Tile[fieldSize][fieldSize];
         for (int i = 0; i < fieldSize; i++) {
             for (int j = 0; j < fieldSize; j++) {
-                boolean isBentPipe = false;
+                board[i][j] = new Tile();
+            }
+        }
+        return board;
+    }
 
-                // Проверяем, находится ли текущая ячейка на пути
+
+    private void printPath() {
+        System.out.println("Konceny put: ");
+        this.correctPath.forEach(e -> System.out.print(e.x + " " + e.y + ", "));
+        System.out.println();
+    }
+
+    private void fillBoardWithPath() {
+        for (int i = 0; i < fieldSize; i++) {
+            for (int j = 0; j < fieldSize; j++) {
                 Node currentNode = new Node(i, j);
                 boolean isOnPath = this.correctPath.contains(currentNode);
                 if (isOnPath) {
-                    // Проверяем, является ли текущая ячейка точкой поворота пути
-                    int index = this.correctPath.indexOf(currentNode);
-                    boolean isBend = false;
-                    if (index > 0 && index < this.correctPath.size() - 1) {
-                        Node prevNode = this.correctPath.get(index - 1);
-                        Node nextNode = this.correctPath.get(index + 1);
-                        if ((prevNode.x == currentNode.x && nextNode.y == currentNode.y)
-                                || (prevNode.y == currentNode.y && nextNode.x == currentNode.x)) {
-                            isBend = true;
-                        }
-                    }
-
-                    // Создаем соответствующий объект трубы в зависимости от того, находится ли точка на повороте
-                    if (currentNode.equals(startNode)) {
-                        this.board[i][j] = new StartEnd(true);
-                    } else if (currentNode.equals(finishNode)) {
-                        this.board[i][j] = new StartEnd(false);
-                    } else if (isBend) {
-                        this.board[i][j] = new BentPipe();
-                    } else {
-                        this.board[i][j] = new StraightPipe();
-                    }
-
-                    isBentPipe = true;
-                }
-                if (!isBentPipe) {
+                    Tile tile = createTileForPathNode(currentNode);
+                    this.board[i][j] = tile;
+                } else {
                     this.board[i][j] = new Tile();
                 }
                 this.add(this.board[i][j]);
             }
         }
     }
+
+    private Tile createTileForPathNode(Node currentNode) {
+        int index = this.correctPath.indexOf(currentNode);
+        if (currentNode.equals(startNode)) {
+            return new StartEnd(true);
+        } else if (currentNode.equals(finishNode)) {
+            return new StartEnd(false);
+        } else if (isBendNode(currentNode, index)) {
+            return new BentPipe();
+        } else {
+            return new StraightPipe();
+        }
+    }
+
+    private boolean isBendNode(Node currentNode, int index) {
+        if (index > 0 && index < this.correctPath.size() - 1) {
+            Node prevNode = this.correctPath.get(index - 1);
+            Node nextNode = this.correctPath.get(index + 1);
+            return (prevNode.x == currentNode.x && nextNode.y == currentNode.y)
+                    || (prevNode.y == currentNode.y && nextNode.x == currentNode.x);
+        }
+        return false;
+    }
+
 
     private void createStartAndFinish(int fieldSize) {
         int randomStartRow = random.nextInt(fieldSize);
