@@ -35,7 +35,6 @@ public class Board extends JPanel {
         for (int i = 0; i < fieldSize; i++) {
             for (int j = 0; j < fieldSize; j++) {
                 this.board[i][j] = new Tile();
-//                this.add(this.board[i][j]);
             }
         }
 
@@ -75,8 +74,6 @@ public class Board extends JPanel {
                 this.add(this.board[i][j]);
             }
         }
-
-
     }
 
     private void createStartAndFinish(int fieldSize) {
@@ -95,7 +92,7 @@ public class Board extends JPanel {
         this.visitedNodes.add(current);
 
         if (current.x == finishNode.x && current.y == finishNode.y) {
-            connectNodes(current, finishNode);
+            connectNodes(current);
             return true;
         }
 
@@ -107,7 +104,7 @@ public class Board extends JPanel {
 
             if (isValidMove(next) && !this.visitedNodes.contains(next)) {
                 if (generatePath(next, finishNode)) {
-                    connectNodes(current, next);
+                    connectNodes(current);
                     return true;
                 }
             }
@@ -143,43 +140,8 @@ public class Board extends JPanel {
         return node.x >= 0 && node.x < fieldSize && node.y >= 0 && node.y < fieldSize;
     }
 
-
-    private void connectNodes(Node current, Node next) {
-//        System.out.println(current.x + " " + current.y);
-        //тут мы просто сохраняем путь
+    private void connectNodes(Node current) {
         this.correctPath.add(current);
-
-//        board[current.x][current.y].setBackground(Color.RED);
-//
-//        board[next.x][next.y].setBackground(Color.MAGENTA);
-
-//        this.board[7][1] = new BentPipe();
-//        this.remove(7 * fieldSize + 1);
-//        this.add(this.board[7][1], 7 * fieldSize + 1);
-    }
-
-
-    private void creatingStart(int fieldSize) {
-        int randomStartRow = random.nextInt(fieldSize);
-
-//        this.board[randomStartRow][0] = new StartEnd(true);
-//        this.remove(randomStartRow * fieldSize);
-//        this.add(this.board[randomStartRow][0], randomStartRow * fieldSize);
-        this.startNode = new Node(randomStartRow, 0);
-    }
-
-
-    private void creatingFinish(int fieldSize) {
-        int randomFinishRow = random.nextInt(fieldSize);
-//        this.board[randomFinishRow][fieldSize - 1] = new StartEnd(false);
-//
-//        IntStream.range(0, 2)
-//                .forEach(i -> this.board[randomFinishRow][fieldSize - 1].rotate());
-//
-//        this.remove(randomFinishRow * fieldSize + (fieldSize - 1));
-//        this.add(this.board[randomFinishRow][fieldSize - 1], randomFinishRow * fieldSize + (fieldSize - 1));
-
-        this.finishNode = new Node(randomFinishRow, fieldSize - 1);
     }
 
 }
