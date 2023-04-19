@@ -87,7 +87,6 @@ public class GameLogic extends UniversalAdapter {
 
     @Override
     public void mouseMoved(MouseEvent e) {
-//        System.out.println("MOVED");
         Component current = this.currentBoard.getComponentAt(e.getPoint());
         if (!(current instanceof Tile)) {
             this.currentBoard.repaint();

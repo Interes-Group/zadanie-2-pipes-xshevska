@@ -19,8 +19,6 @@ public class StartEnd extends Tile {
         }
         g.drawOval(getWidth() / 6, getHeight() / 5, getWidth() / 2 + 10, getHeight() / 2 + 7);
         g.fillOval(getWidth() / 6, getHeight() / 5, getWidth() / 2 + 10, getHeight() / 2 + 7);
-
-//        g.setColor(new Color(0x0132FF));
         g.fillRect(getWidth() / 3, getHeight() / 4 + 8, getWidth(), getHeight() / 3);
 
     }
