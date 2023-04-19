@@ -2,6 +2,7 @@ package sk.stuba.fei.uim.oop.board;
 
 import sk.stuba.fei.uim.oop.tile.BentPipe;
 import sk.stuba.fei.uim.oop.tile.StartEnd;
+import sk.stuba.fei.uim.oop.tile.StraightPipe;
 import sk.stuba.fei.uim.oop.tile.Tile;
 
 import javax.swing.*;
@@ -47,26 +48,43 @@ public class Board extends JPanel {
             System.out.print(e.x + " " + e.y + ", ");
         });
         System.out.println();
-
-
+        
         Node startNode = correctPath.get(correctPath.size() - 1);
         Node finishNode = correctPath.get(0);
+
 
         for (int i = 0; i < fieldSize; i++) {
             for (int j = 0; j < fieldSize; j++) {
                 boolean isBentPipe = false;
-                for (Node node : correctPath) {
-                    if (i == node.x && j == node.y) {
-                        if (node == startNode) {
-                            this.board[i][j] = new StartEnd(true);
-                        } else if (node == finishNode) {
-                            this.board[i][j] = new StartEnd(false);
-                        } else {
-                            this.board[i][j] = new BentPipe();
+
+                // Проверяем, находится ли текущая ячейка на пути
+                Node currentNode = new Node(i, j);
+                boolean isOnPath = this.correctPath.contains(currentNode);
+                if (isOnPath) {
+                    // Проверяем, является ли текущая ячейка точкой поворота пути
+                    int index = this.correctPath.indexOf(currentNode);
+                    boolean isBend = false;
+                    if (index > 0 && index < this.correctPath.size() - 1) {
+                        Node prevNode = this.correctPath.get(index - 1);
+                        Node nextNode = this.correctPath.get(index + 1);
+                        if ((prevNode.x == currentNode.x && nextNode.y == currentNode.y)
+                                || (prevNode.y == currentNode.y && nextNode.x == currentNode.x)) {
+                            isBend = true;
                         }
-                        isBentPipe = true;
-                        break;
                     }
+
+                    // Создаем соответствующий объект трубы в зависимости от того, находится ли точка на повороте
+                    if (currentNode.equals(startNode)) {
+                        this.board[i][j] = new StartEnd(true);
+                    } else if (currentNode.equals(finishNode)) {
+                        this.board[i][j] = new StartEnd(false);
+                    } else if (isBend) {
+                        this.board[i][j] = new BentPipe();
+                    } else {
+                        this.board[i][j] = new StraightPipe();
+                    }
+
+                    isBentPipe = true;
                 }
                 if (!isBentPipe) {
                     this.board[i][j] = new Tile();
@@ -82,7 +100,6 @@ public class Board extends JPanel {
         this.startNode = new Node(randomStartRow, 0);
         this.finishNode = new Node(randomFinishRow, fieldSize - 1);
     }
-
 
 
     private boolean generatePath(Node current, Node finishNode) {
