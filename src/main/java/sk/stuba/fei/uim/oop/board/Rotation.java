@@ -1,5 +1,7 @@
 package sk.stuba.fei.uim.oop.board;
 
+import java.util.Random;
+
 public enum Rotation {
     DEGREES_0,
     DEGREES_90,
@@ -7,6 +9,9 @@ public enum Rotation {
     DEGREES_270;
 
     public static Rotation getRandom() {
-        return values()[(int) (Math.random() * values().length)];
+        Random random = new Random();
+        return values()[random.nextInt(values().length)];
     }
+
+
 }
