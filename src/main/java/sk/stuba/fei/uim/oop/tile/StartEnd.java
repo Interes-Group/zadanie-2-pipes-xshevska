@@ -3,7 +3,7 @@ package sk.stuba.fei.uim.oop.tile;
 import java.awt.*;
 
 public class StartEnd extends Tile {
-    private boolean filledWithWater;
+    private final boolean filledWithWater;
 
     public StartEnd(boolean filledWithWater) {
         this.filledWithWater = filledWithWater;
