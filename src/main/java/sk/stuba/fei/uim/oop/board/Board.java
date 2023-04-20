@@ -120,7 +120,7 @@ public class Board extends JPanel {
         Collections.shuffle(directions);
 
         for (Direction currentDirection : directions) {
-            Node next = move(current, currentDirection);
+            Node next = currentDirection.move(current);
 
             if (isValidMove(next) && !this.visitedNodes.contains(next)) {
                 if (generatePath(next, finishNode)) {
@@ -133,28 +133,6 @@ public class Board extends JPanel {
         return false;
     }
 
-
-    private Node move(Node current, Direction direction) {
-        int newX = current.x;
-        int newY = current.y;
-
-        switch (direction) {
-            case LEFT:
-                newY -= 1;
-                break;
-            case RIGHT:
-                newY += 1;
-                break;
-            case UP:
-                newX -= 1;
-                break;
-            case DOWN:
-                newX += 1;
-                break;
-        }
-
-        return new Node(newX, newY);
-    }
 
     private boolean isValidMove(Node node) {
         return node.x >= 0 && node.x < fieldSize && node.y >= 0 && node.y < fieldSize;

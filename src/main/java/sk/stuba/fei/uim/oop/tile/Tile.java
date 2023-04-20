@@ -11,7 +11,7 @@ public class Tile extends JPanel {
     private boolean highlight;
 
     public Tile() {
-        this.setBorder(BorderFactory.createLineBorder(Color.black));
+//        this.setBorder(BorderFactory.createLineBorder(Color.black));
         this.setBackground(new Color(0x14F3D1));
     }
 
