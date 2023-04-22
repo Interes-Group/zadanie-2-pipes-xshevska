@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import sk.stuba.fei.uim.oop.board.Direction;
 import sk.stuba.fei.uim.oop.board.Rotation;
-import sk.stuba.fei.uim.oop.board.State;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;

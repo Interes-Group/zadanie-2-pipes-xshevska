@@ -95,9 +95,21 @@ public class Board extends JPanel {
                             }
                         }
 
+
                         if (currentTileDirections.contains(directionToNeighbor) && neighborTileDirections.contains(directionToNeighbor.opposite())) {
+                            if (neighborTile instanceof BentPipe) {
+                                ((BentPipe) neighborTile).setState(State.WATER_PRESENT);
+                            } else if (neighborTile instanceof StraightPipe) {
+                                ((StraightPipe) neighborTile).setState(State.WATER_PRESENT);
+                            } else if (neighborTile instanceof StartEnd) {
+                                ((StartEnd) neighborTile).setState(State.WATER_PRESENT);
+                            }
                             stack.push(neighbor);
+                            neighborTile.setHighlight(true);
+                            neighborTile.repaint();
                         }
+
+
                     }
                 }
             }
