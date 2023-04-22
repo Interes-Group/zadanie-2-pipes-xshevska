@@ -50,6 +50,76 @@ public class Board extends JPanel {
         return board;
     }
 
+    public boolean checkWin() {
+        boolean isPathFound = explorePath(startNode, finishNode);
+        if (!isPathFound) {
+            System.out.println("МЫ ОСТАНОВИЛИСЬ НА НОДЕ");
+            return false;
+        }
+        return true;
+    }
+
+
+    public boolean explorePath(Node startNode, Node finishNode) {
+        Stack<Node> stack = new Stack<>();
+        Set<Node> visited = new HashSet<>();
+
+        stack.push(startNode);
+
+        while (!stack.isEmpty()) {
+            Node currentNode = stack.pop();
+
+            if (currentNode.equals(finishNode)) {
+                System.out.println("НАШЛИ ПУТЬ");
+                return true;
+            }
+
+            if (!visited.contains(currentNode)) {
+                visited.add(currentNode);
+
+                Tile currentTile = board[currentNode.x][currentNode.y];
+                List<Direction> currentTileDirections = currentTile.getOpenDirections();
+                List<Node> neighbors = getNeighbors(currentNode);
+
+                for (Node neighbor : neighbors) {
+                    if (!visited.contains(neighbor)) {
+                        Tile neighborTile = board[neighbor.x][neighbor.y];
+                        List<Direction> neighborTileDirections = neighborTile.getOpenDirections();
+
+                        Direction directionToNeighbor = null;
+                        for (Direction direction : Direction.values()) {
+                            Node nodeInDirection = direction.move(currentNode);
+                            if (nodeInDirection.equals(neighbor)) {
+                                directionToNeighbor = direction;
+                                break;
+                            }
+                        }
+
+                        if (currentTileDirections.contains(directionToNeighbor) && neighborTileDirections.contains(directionToNeighbor.opposite())) {
+                            stack.push(neighbor);
+                        }
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+
+    public List<Node> getNeighbors(Node node) {
+        List<Node> neighbors = new ArrayList<>();
+
+        for (Direction direction : Direction.values()) {
+            Node neighbor = direction.move(node);
+            // Проверяем, что соседний узел в пределах допустимых координат
+            if (isValidMove(neighbor)) {
+                neighbors.add(neighbor);
+            }
+        }
+        return neighbors;
+    }
+
 
     private void printPath() {
         System.out.println("Konceny put: ");

@@ -1,8 +1,5 @@
 package sk.stuba.fei.uim.oop.board;
 
-import lombok.Data;
-import lombok.Getter;
-
 import java.util.Objects;
 
 public class Node {

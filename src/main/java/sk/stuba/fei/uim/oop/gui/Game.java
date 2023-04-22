@@ -39,7 +39,7 @@ public class Game {
 
 
         JButton buttonRestart = new JButton("RESTART");
-        buttonRestart.addActionListener(logic);
+        buttonRestart.addActionListener(e -> logic.gameRestart());
         buttonRestart.setFocusable(false);
         buttonRestart.setBackground(Color.YELLOW);
         bottomMenu.add(buttonRestart);

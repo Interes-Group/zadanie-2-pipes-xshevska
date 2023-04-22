@@ -12,23 +12,20 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 public class GameLogic extends UniversalAdapter {
-    public static final int FIRST_LEVEL = 1;
-    public static final int SECOND_LEVEL = 2;
-    public static final int THIRD_LEVEL = 3;
-
 
     public static final int INITIAL_BOARD_SIZE = 8;
     private int currentBoardSize;
-    private JFrame mainGame;
+    private final JFrame mainGame;
+    @Getter
     private Board currentBoard;
     private int level;
     @Getter
-    private JLabel label;
+    private final JLabel label;
 
 
     public GameLogic(JFrame mainGame) {
         this.mainGame = mainGame;
-        this.level = FIRST_LEVEL;
+        this.level = 1;
         this.currentBoardSize = INITIAL_BOARD_SIZE;
 
         this.initializeNewBoard(this.currentBoardSize);
@@ -51,23 +48,20 @@ public class GameLogic extends UniversalAdapter {
         this.mainGame.repaint();
     }
 
-    private void gameRestart() {
-        this.mainGame.remove(this.currentBoard);
-        this.initializeNewBoard(this.currentBoardSize);
-        this.mainGame.add(this.currentBoard);
-        this.updateInformationLabel();
+    public void gameRestart() {
+        this.level = 1;
+        resetAndInitializeNewBoard();
     }
 
 
     @Override
     public void keyPressed(KeyEvent e) {
-        System.out.println(e);
         switch (e.getKeyCode()) {
             case KeyEvent.VK_R:
                 this.gameRestart();
                 break;
             case KeyEvent.VK_ENTER:
-                System.out.println("TO DO");
+                this.getCurrentBoard().checkWin();
                 break;
             case KeyEvent.VK_ESCAPE:
                 this.mainGame.dispose();
@@ -79,7 +73,6 @@ public class GameLogic extends UniversalAdapter {
     public void stateChanged(ChangeEvent e) {
         this.currentBoardSize = ((JSlider) e.getSource()).getValue();
         this.updateInformationLabel();
-
         this.gameRestart();
         this.mainGame.setFocusable(true);
         this.mainGame.requestFocus();
@@ -99,7 +92,6 @@ public class GameLogic extends UniversalAdapter {
     @Override
     public void mousePressed(MouseEvent e) {
         super.mousePressed(e);
-        System.out.println("PRESSSED");
         Component current = currentBoard.getComponentAt(e.getPoint());
         if (current instanceof Tile) {
             ((Tile) current).rotate();
@@ -108,15 +100,22 @@ public class GameLogic extends UniversalAdapter {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        this.gameRestart();
+        if(this.currentBoard.checkWin()) {
+            this.level++;
+            resetAndInitializeNewBoard();
+        }
+    }
+
+    private void resetAndInitializeNewBoard() {
+        this.mainGame.remove(this.currentBoard);
+        this.initializeNewBoard(this.currentBoardSize);
+        this.mainGame.add(this.currentBoard);
+        this.updateInformationLabel();
         this.mainGame.revalidate();
         this.mainGame.repaint();
         this.mainGame.setFocusable(true);
         this.mainGame.requestFocus();
     }
-
-
-
 }
 
 
