@@ -21,7 +21,7 @@ public class Tile extends JPanel {
 
     public Tile() {
         this.setBackground(new Color(0x14F3D1));
-        setBorder(new LineBorder(Color.BLACK, 2));
+        setBorder(new LineBorder(Color.BLACK, 1));
         this.rotation = Rotation.DEGREES_0.randomRotation();
     }
 
