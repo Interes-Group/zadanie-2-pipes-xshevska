@@ -43,7 +43,6 @@ public class Tile extends JPanel {
         Graphics2D g2 = (Graphics2D) g;
         this.angle = rotation.getAngle();
         g2.rotate(Math.toRadians(angle), (getWidth() >> 1), (getHeight() >> 1));
-
         if (highlight) {
             g.setColor(new Color(0xDBFFFB49, true));
             ((Graphics2D) g).setStroke(new BasicStroke(10));

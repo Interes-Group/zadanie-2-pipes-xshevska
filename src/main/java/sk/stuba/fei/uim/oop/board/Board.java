@@ -208,8 +208,6 @@ public class Board extends JPanel {
                 }
             }
         }
-
-
         return false;
     }
 

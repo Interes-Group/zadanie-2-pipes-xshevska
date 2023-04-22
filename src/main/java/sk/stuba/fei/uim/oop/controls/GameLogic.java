@@ -12,7 +12,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 public class GameLogic extends UniversalAdapter {
-
     public static final int INITIAL_BOARD_SIZE = 8;
     private int currentBoardSize;
     private final JFrame mainGame;
@@ -53,6 +52,17 @@ public class GameLogic extends UniversalAdapter {
         resetAndInitializeNewBoard();
     }
 
+    private void resetAndInitializeNewBoard() {
+        this.mainGame.remove(this.currentBoard);
+        this.initializeNewBoard(this.currentBoardSize);
+        this.mainGame.add(this.currentBoard);
+        this.updateInformationLabel();
+        this.mainGame.revalidate();
+        this.mainGame.repaint();
+        this.mainGame.setFocusable(true);
+        this.mainGame.requestFocus();
+    }
+
 
     @Override
     public void keyPressed(KeyEvent e) {
@@ -61,7 +71,10 @@ public class GameLogic extends UniversalAdapter {
                 this.gameRestart();
                 break;
             case KeyEvent.VK_ENTER:
-                this.getCurrentBoard().checkWin();
+                if (this.currentBoard.checkWin()) {
+                    this.level++;
+                    resetAndInitializeNewBoard();
+                }
                 break;
             case KeyEvent.VK_ESCAPE:
                 this.mainGame.dispose();
@@ -111,16 +124,7 @@ public class GameLogic extends UniversalAdapter {
         }
     }
 
-    private void resetAndInitializeNewBoard() {
-        this.mainGame.remove(this.currentBoard);
-        this.initializeNewBoard(this.currentBoardSize);
-        this.mainGame.add(this.currentBoard);
-        this.updateInformationLabel();
-        this.mainGame.revalidate();
-        this.mainGame.repaint();
-        this.mainGame.setFocusable(true);
-        this.mainGame.requestFocus();
-    }
+
 }
 
 

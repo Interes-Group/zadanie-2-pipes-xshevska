@@ -35,12 +35,11 @@ public class StartEnd extends Tile {
     }
 
 
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (this.state == State.WATER_PRESENT) {
-            g.setColor(new Color(0x1E7EEA));
+            g.setColor(new Color(0x0B61C7));
         } else {
             g.setColor(new Color(0x12C466));
         }
