@@ -13,6 +13,7 @@ import java.awt.event.MouseEvent;
 
 public class GameLogic extends UniversalAdapter {
     public static final int INITIAL_BOARD_SIZE = 8;
+
     private int currentBoardSize;
     private final JFrame mainGame;
     @Getter
@@ -20,7 +21,6 @@ public class GameLogic extends UniversalAdapter {
     private int level;
     @Getter
     private final JLabel label;
-
 
     public GameLogic(JFrame mainGame) {
         this.mainGame = mainGame;
@@ -43,8 +43,13 @@ public class GameLogic extends UniversalAdapter {
 
     private void updateInformationLabel() {
         this.label.setText(" LEVEL : " + this.level + "  BOARD SIZE : " + this.currentBoardSize);
+        updateMainGame();
+    }
+
+    private void updateMainGame() {
         this.mainGame.revalidate();
         this.mainGame.repaint();
+        this.mainGame.requestFocus();
     }
 
     public void gameRestart() {
@@ -57,10 +62,7 @@ public class GameLogic extends UniversalAdapter {
         this.initializeNewBoard(this.currentBoardSize);
         this.mainGame.add(this.currentBoard);
         this.updateInformationLabel();
-        this.mainGame.revalidate();
-        this.mainGame.repaint();
-        this.mainGame.setFocusable(true);
-        this.mainGame.requestFocus();
+        updateMainGame();
     }
 
 
@@ -113,7 +115,9 @@ public class GameLogic extends UniversalAdapter {
         Component current = currentBoard.getComponentAt(e.getPoint());
         if (current instanceof Tile) {
             ((Tile) current).rotate();
+            ((Tile) current).setHighlight(true);
         }
+        this.currentBoard.repaint();
     }
 
     @Override
@@ -123,7 +127,6 @@ public class GameLogic extends UniversalAdapter {
             resetAndInitializeNewBoard();
         }
     }
-
 
 }
 
