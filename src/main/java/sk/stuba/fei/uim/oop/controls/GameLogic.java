@@ -71,12 +71,17 @@ public class GameLogic extends UniversalAdapter {
 
     @Override
     public void stateChanged(ChangeEvent e) {
-        this.currentBoardSize = ((JSlider) e.getSource()).getValue();
-        this.updateInformationLabel();
-        this.gameRestart();
-        this.mainGame.setFocusable(true);
-        this.mainGame.requestFocus();
+        JSlider source = (JSlider) e.getSource();
+        if (!source.getValueIsAdjusting()) {
+            int previousBoardSize = this.currentBoardSize;
+            this.currentBoardSize = source.getValue();
+
+            if (previousBoardSize != this.currentBoardSize) {
+                this.gameRestart();
+            }
+        }
     }
+
 
     @Override
     public void mouseMoved(MouseEvent e) {
@@ -100,7 +105,7 @@ public class GameLogic extends UniversalAdapter {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(this.currentBoard.checkWin()) {
+        if (this.currentBoard.checkWin()) {
             this.level++;
             resetAndInitializeNewBoard();
         }
@@ -117,6 +122,5 @@ public class GameLogic extends UniversalAdapter {
         this.mainGame.requestFocus();
     }
 }
-
 
 

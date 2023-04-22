@@ -28,7 +28,6 @@ public class Game {
         bottomMenu.setBackground(new Color(0x2AFFC4));
         bottomMenu.setLayout(new GridLayout(2, 2));
 
-
         bottomMenu.add(logic.getLabel());
 
         JButton buttonCheck = new JButton("CHECK WIN");
@@ -37,13 +36,11 @@ public class Game {
         buttonCheck.setBackground(Color.YELLOW);
         bottomMenu.add(buttonCheck);
 
-
         JButton buttonRestart = new JButton("RESTART");
         buttonRestart.addActionListener(e -> logic.gameRestart());
         buttonRestart.setFocusable(false);
         buttonRestart.setBackground(Color.YELLOW);
         bottomMenu.add(buttonRestart);
-
 
         JSlider slider = new JSlider(JSlider.HORIZONTAL, 8, 12, 8);
         slider.setBackground(new Color(0x2AFFC4));
@@ -55,9 +52,7 @@ public class Game {
         slider.addChangeListener(logic);
         bottomMenu.add(slider);
 
-
         return bottomMenu;
     }
-
 
 }
