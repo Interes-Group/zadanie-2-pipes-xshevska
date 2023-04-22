@@ -35,7 +35,6 @@ public class Board extends JPanel {
         this.setLayout(new GridLayout(fieldSize, fieldSize));
         createStartAndFinish(fieldSize);
         generatePath(startNode, finishNode);
-        printPath();
         fillBoardWithPath();
     }
 
@@ -51,19 +50,13 @@ public class Board extends JPanel {
     }
 
     public boolean checkWin() {
-        boolean isPathFound = explorePath(startNode, finishNode);
-        if (!isPathFound) {
-            System.out.println("МЫ ОСТАНОВИЛИСЬ НА НОДЕ");
-            return false;
-        }
-        return true;
+        return explorePath(startNode, finishNode);
     }
 
 
-    public boolean explorePath(Node startNode, Node finishNode) {
+    private boolean explorePath(Node startNode, Node finishNode) {
         Stack<Node> stack = new Stack<>();
         Set<Node> visited = new HashSet<>();
-
         stack.push(startNode);
 
         while (!stack.isEmpty()) {
@@ -76,13 +69,13 @@ public class Board extends JPanel {
             if (!visited.contains(currentNode)) {
                 visited.add(currentNode);
 
-                Tile currentTile = board[currentNode.x][currentNode.y];
+                Tile currentTile = board[currentNode.getX()][currentNode.getY()];
                 List<Direction> currentTileDirections = currentTile.getOpenDirections();
                 List<Node> neighbors = getNeighbors(currentNode);
 
                 for (Node neighbor : neighbors) {
                     if (!visited.contains(neighbor)) {
-                        Tile neighborTile = board[neighbor.x][neighbor.y];
+                        Tile neighborTile = board[neighbor.getX()][neighbor.getY()];
                         List<Direction> neighborTileDirections = neighborTile.getOpenDirections();
 
                         Direction directionToNeighbor = null;
@@ -117,7 +110,7 @@ public class Board extends JPanel {
     }
 
 
-    public List<Node> getNeighbors(Node node) {
+    private List<Node> getNeighbors(Node node) {
         List<Node> neighbors = new ArrayList<>();
 
         for (Direction direction : Direction.values()) {
@@ -130,11 +123,6 @@ public class Board extends JPanel {
     }
 
 
-    private void printPath() {
-        System.out.println("Put: ");
-        this.correctPath.forEach(e -> System.out.print(e.x + " " + e.y + ", "));
-        System.out.println();
-    }
 
     private void fillBoardWithPath() {
         for (int i = 0; i < fieldSize; i++) {
@@ -169,8 +157,8 @@ public class Board extends JPanel {
         if (index > 0 && index < this.correctPath.size() - 1) {
             Node prevNode = this.correctPath.get(index - 1);
             Node nextNode = this.correctPath.get(index + 1);
-            return (prevNode.x == currentNode.x && nextNode.y == currentNode.y)
-                    || (prevNode.y == currentNode.y && nextNode.x == currentNode.x);
+            return (prevNode.getX() == currentNode.getX() && nextNode.getY() == currentNode.getY())
+                    || (prevNode.getY() == currentNode.getY() && nextNode.getX() == currentNode.getX());
         }
         return false;
     }
@@ -190,7 +178,7 @@ public class Board extends JPanel {
         }
         this.visitedNodes.add(current);
 
-        if (current.x == finishNode.x && current.y == finishNode.y) {
+        if (current.getX() == finishNode.getX() && current.getY() == finishNode.getY()) {
             connectNodes(current);
             return true;
         }
@@ -213,7 +201,7 @@ public class Board extends JPanel {
 
 
     private boolean isValidMove(Node node) {
-        return node.x >= 0 && node.x < fieldSize && node.y >= 0 && node.y < fieldSize;
+        return node.getX() >= 0 && node.getX() < fieldSize && node.getY() >= 0 && node.getY() < fieldSize;
     }
 
     private void connectNodes(Node current) {

@@ -1,10 +1,14 @@
 package sk.stuba.fei.uim.oop.board;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Objects;
 
 public class Node {
-
-    public int x, y;
+    @Getter
+    @Setter
+    private int x, y;
 
     public Node(int x, int y) {
         this.x = x;

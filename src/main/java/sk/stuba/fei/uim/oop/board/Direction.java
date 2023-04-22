@@ -8,8 +8,8 @@ public enum Direction {
 
 
     public Node move(Node node) {
-        int newX = node.x;
-        int newY = node.y;
+        int newX = node.getX();
+        int newY = node.getY();
 
         switch (this) {
             case LEFT:

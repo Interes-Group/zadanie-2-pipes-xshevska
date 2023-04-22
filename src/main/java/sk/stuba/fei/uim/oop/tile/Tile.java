@@ -15,10 +15,9 @@ import java.util.List;
 public class Tile extends JPanel {
     @Setter
     private boolean highlight;
-
-    protected int angle;
     @Getter
     protected Rotation rotation;
+    protected int angle;
 
     public Tile() {
         this.setBackground(new Color(0x14F3D1));
@@ -32,7 +31,6 @@ public class Tile extends JPanel {
 
     public void rotate() {
         this.rotation = rotation.next();
-        System.out.println(rotation);
         repaint();
     }
 
@@ -45,7 +43,7 @@ public class Tile extends JPanel {
         g2.rotate(Math.toRadians(angle), (getWidth() >> 1), (getHeight() >> 1));
         if (highlight) {
             g.setColor(new Color(0xDBFFFB49, true));
-            ((Graphics2D) g).setStroke(new BasicStroke(10));
+            ((Graphics2D) g).setStroke(new BasicStroke(20));
             g.drawRect(0, 0, this.getWidth(), this.getHeight());
             highlight = false;
         }
