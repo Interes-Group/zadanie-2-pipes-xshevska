@@ -1,6 +1,9 @@
 package sk.stuba.fei.uim.oop.tile;
 
+import lombok.Getter;
+import lombok.Setter;
 import sk.stuba.fei.uim.oop.board.Direction;
+import sk.stuba.fei.uim.oop.board.State;
 
 import java.awt.*;
 import java.util.Arrays;
@@ -9,6 +12,14 @@ import java.util.List;
 
 //Прямая труба
 public class StraightPipe extends Tile {
+    @Getter
+    @Setter
+    private State state;
+
+    public StraightPipe(State state) {
+        this.state = state;
+    }
+
 
     @Override
     public List<Direction> getOpenDirections() {

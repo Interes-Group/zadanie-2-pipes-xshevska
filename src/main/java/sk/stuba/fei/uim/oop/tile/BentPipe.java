@@ -1,7 +1,10 @@
 package sk.stuba.fei.uim.oop.tile;
 
 
+import lombok.Getter;
+import lombok.Setter;
 import sk.stuba.fei.uim.oop.board.Direction;
+import sk.stuba.fei.uim.oop.board.State;
 
 import java.awt.*;
 import java.util.Arrays;
@@ -9,6 +12,13 @@ import java.util.Collections;
 import java.util.List;
 
 public class BentPipe extends Tile {
+    @Getter
+    @Setter
+    private State state;
+
+    public BentPipe(State state) {
+        this.state = state;
+    }
 
 
     @Override

@@ -1,16 +1,21 @@
 package sk.stuba.fei.uim.oop.tile;
 
+import lombok.Getter;
+import lombok.Setter;
 import sk.stuba.fei.uim.oop.board.Direction;
+import sk.stuba.fei.uim.oop.board.State;
 
 import java.awt.*;
 import java.util.Collections;
 import java.util.List;
 
 public class StartEnd extends Tile {
-    private final boolean filledWithWater;
+    @Getter
+    @Setter
+    private State state;
 
-    public StartEnd(boolean filledWithWater) {
-        this.filledWithWater = filledWithWater;
+    public StartEnd(State state) {
+        this.state = state;
     }
 
     @Override
@@ -34,7 +39,7 @@ public class StartEnd extends Tile {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (this.filledWithWater) {
+        if (this.state == State.WATER_PRESENT) {
             g.setColor(new Color(0x1E7EEA));
         } else {
             g.setColor(new Color(0x888181));

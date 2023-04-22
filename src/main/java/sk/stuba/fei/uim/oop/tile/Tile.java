@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import sk.stuba.fei.uim.oop.board.Direction;
 import sk.stuba.fei.uim.oop.board.Rotation;
+import sk.stuba.fei.uim.oop.board.State;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -42,7 +43,7 @@ public class Tile extends JPanel {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         this.angle = rotation.getAngle();
-        g2.rotate(Math.toRadians(angle), (getWidth() / 2), (getHeight() / 2));
+        g2.rotate(Math.toRadians(angle), (getWidth() >> 1), (getHeight() >> 1));
 
         if (highlight) {
             g.setColor(new Color(0xDBFFFB49, true));
@@ -53,6 +54,5 @@ public class Tile extends JPanel {
     }
 
 }
-
 
 

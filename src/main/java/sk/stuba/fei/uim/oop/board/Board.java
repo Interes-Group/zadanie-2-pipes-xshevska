@@ -102,7 +102,6 @@ public class Board extends JPanel {
                 }
             }
         }
-
         return false;
     }
 
@@ -122,7 +121,7 @@ public class Board extends JPanel {
 
 
     private void printPath() {
-        System.out.println("Konceny put: ");
+        System.out.println("Put: ");
         this.correctPath.forEach(e -> System.out.print(e.x + " " + e.y + ", "));
         System.out.println();
     }
@@ -146,13 +145,13 @@ public class Board extends JPanel {
     private Tile createTileForPathNode(Node currentNode) {
         int index = this.correctPath.indexOf(currentNode);
         if (currentNode.equals(startNode)) {
-            return new StartEnd(true);
+            return new StartEnd(State.WATER_PRESENT);
         } else if (currentNode.equals(finishNode)) {
-            return new StartEnd(false);
+            return new StartEnd(State.NO_WATER);
         } else if (isBendNode(currentNode, index)) {
-            return new BentPipe();
+            return new BentPipe(State.NO_WATER);
         } else {
-            return new StraightPipe();
+            return new StraightPipe(State.NO_WATER);
         }
     }
 
@@ -199,6 +198,8 @@ public class Board extends JPanel {
                 }
             }
         }
+
+
 
         return false;
     }
