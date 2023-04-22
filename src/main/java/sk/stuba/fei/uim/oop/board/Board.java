@@ -70,7 +70,6 @@ public class Board extends JPanel {
             Node currentNode = stack.pop();
 
             if (currentNode.equals(finishNode)) {
-                System.out.println("НАШЛИ ПУТЬ");
                 return true;
             }
 
@@ -105,8 +104,8 @@ public class Board extends JPanel {
                                 ((StartEnd) neighborTile).setState(State.WATER_PRESENT);
                             }
                             stack.push(neighbor);
-                            neighborTile.setHighlight(true);
                             neighborTile.repaint();
+
                         }
 
 
@@ -123,7 +122,6 @@ public class Board extends JPanel {
 
         for (Direction direction : Direction.values()) {
             Node neighbor = direction.move(node);
-            // Проверяем, что соседний узел в пределах допустимых координат
             if (isValidMove(neighbor)) {
                 neighbors.add(neighbor);
             }
@@ -210,7 +208,6 @@ public class Board extends JPanel {
                 }
             }
         }
-
 
 
         return false;

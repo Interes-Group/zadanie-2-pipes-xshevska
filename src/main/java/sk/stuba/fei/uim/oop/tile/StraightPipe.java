@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-//Прямая труба
+
 public class StraightPipe extends Tile {
     @Getter
     @Setter
@@ -39,7 +39,12 @@ public class StraightPipe extends Tile {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(new Color(0x0132FF));
+        if (this.state == State.WATER_PRESENT) {
+            g.setColor(new Color(0x308AF3));
+            this.state = State.NO_WATER;
+        } else {
+            g.setColor(new Color(0xC0E085C4));
+        }
         g.fillRect(getWidth() / 3, 0, getWidth() / 3, getHeight());
     }
 }

@@ -41,8 +41,12 @@ public class BentPipe extends Tile {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(new Color(0x0B1DE7));
-
+        if (this.state == State.WATER_PRESENT) {
+            g.setColor(new Color(0x0B61C7));
+            this.state = State.NO_WATER;
+        } else {
+            g.setColor(new Color(0xC0E085C4));
+        }
         g.fillRect(getWidth() / 3, getHeight() / 4 + 8, getWidth(), getHeight() / 3);
         g.fillRect(getWidth() / 3, getHeight() / 4 + 10, getWidth() / 3, getHeight());
 

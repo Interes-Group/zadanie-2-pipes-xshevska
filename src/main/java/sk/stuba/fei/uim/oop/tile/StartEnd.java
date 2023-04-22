@@ -42,7 +42,7 @@ public class StartEnd extends Tile {
         if (this.state == State.WATER_PRESENT) {
             g.setColor(new Color(0x1E7EEA));
         } else {
-            g.setColor(new Color(0x888181));
+            g.setColor(new Color(0x12C466));
         }
         g.drawOval(getWidth() / 6, getHeight() / 5, getWidth() / 2 + 10, getHeight() / 2 + 7);
         g.fillOval(getWidth() / 6, getHeight() / 5, getWidth() / 2 + 10, getHeight() / 2 + 7);
