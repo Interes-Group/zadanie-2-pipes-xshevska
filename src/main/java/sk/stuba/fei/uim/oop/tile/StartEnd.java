@@ -1,6 +1,10 @@
 package sk.stuba.fei.uim.oop.tile;
 
+import sk.stuba.fei.uim.oop.board.Direction;
+
 import java.awt.*;
+import java.util.Collections;
+import java.util.List;
 
 public class StartEnd extends Tile {
     private final boolean filledWithWater;
@@ -8,6 +12,24 @@ public class StartEnd extends Tile {
     public StartEnd(boolean filledWithWater) {
         this.filledWithWater = filledWithWater;
     }
+
+    @Override
+    public List<Direction> getOpenDirections() {
+        switch (this.rotation) {
+            case DEGREES_0:
+                return List.of(Direction.RIGHT);
+            case DEGREES_180:
+                return List.of(Direction.LEFT);
+            case DEGREES_90:
+                return List.of(Direction.DOWN);
+            case DEGREES_270:
+                return List.of(Direction.UP);
+            default:
+                return Collections.emptyList();
+        }
+    }
+
+
 
     @Override
     protected void paintComponent(Graphics g) {
