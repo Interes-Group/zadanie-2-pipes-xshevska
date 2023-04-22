@@ -110,6 +110,18 @@ public class GameLogic extends UniversalAdapter {
     }
 
     @Override
+    public void mouseExited(MouseEvent e) {
+        for (Component component : this.currentBoard.getComponents()) {
+            if (component instanceof Tile) {
+                ((Tile) component).setHighlight(false);
+            }
+        }
+        System.out.println("EXITED");
+        this.currentBoard.repaint();
+    }
+
+
+    @Override
     public void mousePressed(MouseEvent e) {
         super.mousePressed(e);
         Component current = currentBoard.getComponentAt(e.getPoint());

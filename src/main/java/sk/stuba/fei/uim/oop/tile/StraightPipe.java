@@ -40,7 +40,7 @@ public class StraightPipe extends Tile {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (this.state == State.WATER_PRESENT) {
-            g.setColor(new Color(0x308AF3));
+            g.setColor(new Color(0x0B61C7));
             this.state = State.NO_WATER;
         } else {
             g.setColor(new Color(0xC0E085C4));
@@ -48,3 +48,4 @@ public class StraightPipe extends Tile {
         g.fillRect(getWidth() / 3, 0, getWidth() / 3, getHeight());
     }
 }
+
