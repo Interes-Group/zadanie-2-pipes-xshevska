@@ -1,10 +1,15 @@
 package sk.stuba.fei.uim.oop.tile;
 
+import lombok.Getter;
 import lombok.Setter;
+import sk.stuba.fei.uim.oop.board.Direction;
 import sk.stuba.fei.uim.oop.board.Rotation;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.util.Collections;
+import java.util.List;
 
 
 public class Tile extends JPanel {
@@ -12,17 +17,22 @@ public class Tile extends JPanel {
     private boolean highlight;
 
     protected int angle;
-
+    @Getter
     protected Rotation rotation;
 
     public Tile() {
         this.setBackground(new Color(0x14F3D1));
+        setBorder(new LineBorder(Color.BLACK, 2));
         this.rotation = Rotation.DEGREES_0.randomRotation();
     }
 
+    public List<Direction> getOpenDirections() {
+        return Collections.emptyList();
+    }
 
     public void rotate() {
         this.rotation = rotation.next();
+        System.out.println(rotation);
         repaint();
     }
 
