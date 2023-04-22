@@ -55,6 +55,7 @@ public class Board extends JPanel {
 
 
     private boolean explorePath(Node startNode, Node finishNode) {
+
         Stack<Node> stack = new Stack<>();
         Set<Node> visited = new HashSet<>();
         stack.push(startNode);
@@ -70,13 +71,13 @@ public class Board extends JPanel {
                 visited.add(currentNode);
 
                 Tile currentTile = board[currentNode.getX()][currentNode.getY()];
-                List<Direction> currentTileDirections = currentTile.getOpenDirections();
+                List<Direction> currentTileDirections = currentTile.getAccessibleDirections();
                 List<Node> neighbors = getNeighbors(currentNode);
 
                 for (Node neighbor : neighbors) {
                     if (!visited.contains(neighbor)) {
                         Tile neighborTile = board[neighbor.getX()][neighbor.getY()];
-                        List<Direction> neighborTileDirections = neighborTile.getOpenDirections();
+                        List<Direction> neighborTileDirections = neighborTile.getAccessibleDirections();
 
                         Direction directionToNeighbor = null;
                         for (Direction direction : Direction.values()) {

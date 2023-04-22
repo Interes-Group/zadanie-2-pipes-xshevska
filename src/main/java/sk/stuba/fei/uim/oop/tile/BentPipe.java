@@ -22,7 +22,7 @@ public class BentPipe extends Tile {
 
 
     @Override
-    public List<Direction> getOpenDirections() {
+    public List<Direction> getAccessibleDirections() {
         switch (this.rotation) {
             case DEGREES_0:
                 return Arrays.asList(Direction.DOWN, Direction.RIGHT);
@@ -41,7 +41,7 @@ public class BentPipe extends Tile {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (this.state == State.WATER_PRESENT) {
+        if (this.state.equals(State.WATER_PRESENT)) {
             g.setColor(new Color(0x0B61C7));
             this.state = State.NO_WATER;
         } else {

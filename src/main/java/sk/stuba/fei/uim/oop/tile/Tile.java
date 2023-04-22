@@ -25,7 +25,7 @@ public class Tile extends JPanel {
         this.rotation = Rotation.DEGREES_0.randomRotation();
     }
 
-    public List<Direction> getOpenDirections() {
+    public List<Direction> getAccessibleDirections() {
         return Collections.emptyList();
     }
 

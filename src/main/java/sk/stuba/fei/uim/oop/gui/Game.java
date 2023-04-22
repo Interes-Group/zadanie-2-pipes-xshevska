@@ -18,7 +18,6 @@ public class Game {
 
         GameLogic logic = new GameLogic(frame);
         frame.addKeyListener(logic);
-//        frame.addMouseListener(logic);
         frame.add(createBottomMenu(logic), BorderLayout.SOUTH);
         frame.setVisible(true);
     }

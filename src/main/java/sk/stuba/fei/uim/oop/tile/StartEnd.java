@@ -19,7 +19,7 @@ public class StartEnd extends Tile {
     }
 
     @Override
-    public List<Direction> getOpenDirections() {
+    public List<Direction> getAccessibleDirections() {
         switch (this.rotation) {
             case DEGREES_0:
                 return List.of(Direction.RIGHT);

@@ -8,15 +8,15 @@ public enum Rotation {
 
     public Rotation randomRotation() {
         int randomIndex = (int) (Math.random() * values().length);
-        return values()[randomIndex];
+        return (values()[randomIndex]);
     }
 
     public Rotation next() {
-        return values()[(this.ordinal() + 1) % values().length];
+        return (values()[(this.ordinal() + 1) % values().length]);
     }
 
     public int getAngle() {
-        return this.ordinal() * 90;
+        return (this.ordinal() * 90);
     }
 
 }

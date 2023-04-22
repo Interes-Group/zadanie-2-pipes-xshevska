@@ -12,10 +12,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 public class GameLogic extends UniversalAdapter {
+
     public static final int INITIAL_BOARD_SIZE = 8;
+    public static final int STARTING_LEVEL = 1;
 
     private int currentBoardSize;
     private final JFrame mainGame;
+
     @Getter
     private Board currentBoard;
     private int level;
@@ -24,7 +27,7 @@ public class GameLogic extends UniversalAdapter {
 
     public GameLogic(JFrame mainGame) {
         this.mainGame = mainGame;
-        this.level = 1;
+        this.level = STARTING_LEVEL;
         this.currentBoardSize = INITIAL_BOARD_SIZE;
 
         this.initializeNewBoard(this.currentBoardSize);
@@ -53,7 +56,7 @@ public class GameLogic extends UniversalAdapter {
     }
 
     public void gameRestart() {
-        this.level = 1;
+        this.level = STARTING_LEVEL;
         resetAndInitializeNewBoard();
     }
 
@@ -116,7 +119,6 @@ public class GameLogic extends UniversalAdapter {
                 ((Tile) component).setHighlight(false);
             }
         }
-        System.out.println("EXITED");
         this.currentBoard.repaint();
     }
 
