@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Board extends JPanel {
     private final int fieldSize;
@@ -73,34 +74,36 @@ public class Board extends JPanel {
                 List<Direction> currentTileDirections = currentTile.getAccessibleDirections();
                 List<Node> neighbors = getNeighbors(currentNode);
 
-                for (Node neighbor : neighbors) {
-                    if (!visited.contains(neighbor)) {
-                        Tile neighborTile = board[neighbor.getX()][neighbor.getY()];
-                        List<Direction> neighborTileDirections = neighborTile.getAccessibleDirections();
+                List<Node> filteredNeighbors = neighbors.stream()
+                        .filter(neighbor -> !visited.contains(neighbor))
+                        .filter(neighbor -> {
+                            Tile neighborTile = board[neighbor.getX()][neighbor.getY()];
+                            List<Direction> neighborTileDirections = neighborTile.getAccessibleDirections();
 
-                        Direction directionToNeighbor = null;
-                        for (Direction direction : Direction.values()) {
-                            Node nodeInDirection = direction.move(currentNode);
-                            if (nodeInDirection.equals(neighbor)) {
-                                directionToNeighbor = direction;
-                                break;
-                            }
-                        }
+                            Direction directionToNeighbor = Arrays.stream(Direction.values())
+                                    .filter(direction -> direction.move(currentNode).equals(neighbor))
+                                    .findFirst()
+                                    .orElse(null);
 
-                        if (currentTileDirections.contains(directionToNeighbor)) {
-                            if (directionToNeighbor != null && neighborTileDirections.contains(directionToNeighbor.opposite())) {
-                                if (neighborTile instanceof BentPipe) {
-                                    ((BentPipe) neighborTile).setState(State.WATER_PRESENT);
-                                } else if (neighborTile instanceof StraightPipe) {
-                                    ((StraightPipe) neighborTile).setState(State.WATER_PRESENT);
-                                } else if (neighborTile instanceof StartEnd) {
-                                    ((StartEnd) neighborTile).setState(State.WATER_PRESENT);
-                                }
-                                stack.push(neighbor);
-                                neighborTile.repaint();
-                            }
-                        }
+                            return currentTileDirections.contains(directionToNeighbor)
+                                    && directionToNeighbor != null
+                                    && neighborTileDirections.contains(directionToNeighbor.opposite());
+                        })
+                        .collect(Collectors.toList());
+
+                for (Node neighbor : filteredNeighbors) {
+                    Tile neighborTile = board[neighbor.getX()][neighbor.getY()];
+
+                    if (neighborTile instanceof BentPipe) {
+                        ((BentPipe) neighborTile).setState(State.WATER_PRESENT);
+                    } else if (neighborTile instanceof StraightPipe) {
+                        ((StraightPipe) neighborTile).setState(State.WATER_PRESENT);
+                    } else if (neighborTile instanceof StartEnd) {
+                        ((StartEnd) neighborTile).setState(State.WATER_PRESENT);
                     }
+
+                    stack.push(neighbor);
+                    neighborTile.repaint();
                 }
             }
         }

@@ -27,7 +27,6 @@ public enum Direction {
                 newX += 1;
                 break;
         }
-
         return new Node(newX, newY);
     }
 
