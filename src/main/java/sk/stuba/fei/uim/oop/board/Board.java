@@ -115,7 +115,6 @@ public class Board extends JPanel {
 
     private List<Node> getNeighbors(Node node) {
         List<Node> neighbors = new ArrayList<>();
-
         for (Direction direction : Direction.values()) {
             Node neighbor = direction.move(node);
             if (isValidMove(neighbor)) {

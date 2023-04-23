@@ -39,8 +39,8 @@ public enum Direction {
     }
 
     private boolean isOpposite(Direction other) {
-        return (this == UP && other == DOWN) || (this == DOWN && other == UP)
-                || (this == LEFT && other == RIGHT) || (this == RIGHT && other == LEFT);
+        return (this.equals(UP) && other.equals(DOWN)) || (this.equals(DOWN) && other.equals(UP))
+                || (this.equals(LEFT) && other.equals(RIGHT)) || (this.equals(RIGHT) && other.equals(LEFT));
     }
 
 }

@@ -16,7 +16,6 @@ public class StraightPipe extends Tile {
     @Setter
     private State state;
 
-
     public StraightPipe(State state) {
         this.state = state;
     }
