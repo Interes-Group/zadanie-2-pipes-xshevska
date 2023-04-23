@@ -14,8 +14,10 @@ import java.util.stream.Collectors;
 public class Board extends JPanel {
     private final int fieldSize;
     private final Random random;
+
     private final Set<Node> visitedNodes;
     private final List<Node> correctPath;
+
     private Node startNode;
     private Node finishNode;
     private Tile[][] board;

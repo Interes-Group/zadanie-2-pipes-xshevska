@@ -13,6 +13,9 @@ import java.util.List;
 
 
 public class Tile extends JPanel {
+    public static final Color COLOR_BLUE = new Color(0x0B61C7);
+    public static final Color COLOR_PURPLE = new Color(0xC0E085C4);
+
     @Setter
     private boolean highlight;
     @Getter
