@@ -1,5 +1,7 @@
 package sk.stuba.fei.uim.oop.board;
 
+import java.util.stream.Stream;
+
 public enum Direction {
     UP,
     DOWN,
@@ -31,18 +33,15 @@ public enum Direction {
 
 
     public Direction opposite() {
-        switch (this) {
-            case UP:
-                return DOWN;
-            case DOWN:
-                return UP;
-            case LEFT:
-                return RIGHT;
-            case RIGHT:
-                return LEFT;
-            default:
-                return null;
-        }
+        return Stream.of(Direction.values())
+                .filter(direction -> direction != this && isOpposite(direction))
+                .findFirst()
+                .orElse(null);
+    }
+
+    private boolean isOpposite(Direction other) {
+        return (this == UP && other == DOWN) || (this == DOWN && other == UP)
+                || (this == LEFT && other == RIGHT) || (this == RIGHT && other == LEFT);
     }
 
 }
