@@ -35,7 +35,7 @@ public class Board extends JPanel {
         this.setLayout(new GridLayout(fieldSize, fieldSize));
         createStartAndFinish(fieldSize);
         generatePath(startNode, finishNode);
-        fillBoardWithPath();
+        populateBoardWithCorrectPath();
     }
 
 
@@ -122,7 +122,7 @@ public class Board extends JPanel {
     }
 
 
-    private void fillBoardWithPath() {
+    private void populateBoardWithCorrectPath() {
         for (int i = 0; i < fieldSize; i++) {
             for (int j = 0; j < fieldSize; j++) {
                 Node currentNode = new Node(i, j);
