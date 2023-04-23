@@ -55,7 +55,6 @@ public class Board extends JPanel {
 
 
     private boolean explorePath(Node startNode, Node finishNode) {
-
         Stack<Node> stack = new Stack<>();
         Set<Node> visited = new HashSet<>();
         stack.push(startNode);
@@ -88,21 +87,20 @@ public class Board extends JPanel {
                             }
                         }
 
-
-                        if (currentTileDirections.contains(directionToNeighbor) && neighborTileDirections.contains(directionToNeighbor.opposite())) {
-                            if (neighborTile instanceof BentPipe) {
-                                ((BentPipe) neighborTile).setState(State.WATER_PRESENT);
-                            } else if (neighborTile instanceof StraightPipe) {
-                                ((StraightPipe) neighborTile).setState(State.WATER_PRESENT);
-                            } else if (neighborTile instanceof StartEnd) {
-                                ((StartEnd) neighborTile).setState(State.WATER_PRESENT);
+                        if (currentTileDirections.contains(directionToNeighbor)) {
+                            assert directionToNeighbor != null;
+                            if (neighborTileDirections.contains(directionToNeighbor.opposite())) {
+                                if (neighborTile instanceof BentPipe) {
+                                    ((BentPipe) neighborTile).setState(State.WATER_PRESENT);
+                                } else if (neighborTile instanceof StraightPipe) {
+                                    ((StraightPipe) neighborTile).setState(State.WATER_PRESENT);
+                                } else if (neighborTile instanceof StartEnd) {
+                                    ((StartEnd) neighborTile).setState(State.WATER_PRESENT);
+                                }
+                                stack.push(neighbor);
+                                neighborTile.repaint();
                             }
-                            stack.push(neighbor);
-                            neighborTile.repaint();
-
                         }
-
-
                     }
                 }
             }
@@ -122,7 +120,6 @@ public class Board extends JPanel {
         }
         return neighbors;
     }
-
 
 
     private void fillBoardWithPath() {

@@ -48,7 +48,6 @@ public class Tile extends JPanel {
             highlight = false;
         }
     }
-
 }
 
 
