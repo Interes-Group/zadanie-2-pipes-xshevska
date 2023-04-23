@@ -51,11 +51,11 @@ public class Board extends JPanel {
     }
 
     public boolean checkWin() {
-        return explorePath(startNode, finishNode);
+        return investigatePath(startNode, finishNode);
     }
 
 
-    private boolean explorePath(Node startNode, Node finishNode) {
+    private boolean investigatePath(Node startNode, Node finishNode) {
         Stack<Node> stack = new Stack<>();
         Set<Node> visited = new HashSet<>();
         stack.push(startNode);
