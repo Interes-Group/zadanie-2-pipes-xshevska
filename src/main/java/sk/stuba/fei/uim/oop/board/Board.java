@@ -88,8 +88,7 @@ public class Board extends JPanel {
                         }
 
                         if (currentTileDirections.contains(directionToNeighbor)) {
-                            assert directionToNeighbor != null;
-                            if (neighborTileDirections.contains(directionToNeighbor.opposite())) {
+                            if (directionToNeighbor != null && neighborTileDirections.contains(directionToNeighbor.opposite())) {
                                 if (neighborTile instanceof BentPipe) {
                                     ((BentPipe) neighborTile).setState(State.WATER_PRESENT);
                                 } else if (neighborTile instanceof StraightPipe) {

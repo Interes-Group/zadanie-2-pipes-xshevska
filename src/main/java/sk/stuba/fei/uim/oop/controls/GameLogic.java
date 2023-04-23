@@ -46,7 +46,7 @@ public class GameLogic extends UniversalAdapter {
 
     private void updateInformationLabel() {
         this.label.setText(" LEVEL : " + this.level + "  BOARD SIZE : " + this.currentBoardSize);
-        updateMainGame();
+        this.updateMainGame();
     }
 
     private void updateMainGame() {
@@ -57,7 +57,7 @@ public class GameLogic extends UniversalAdapter {
 
     public void gameRestart() {
         this.level = STARTING_LEVEL;
-        resetAndInitializeNewBoard();
+        this.resetAndInitializeNewBoard();
     }
 
     private void resetAndInitializeNewBoard() {
@@ -65,7 +65,7 @@ public class GameLogic extends UniversalAdapter {
         this.initializeNewBoard(this.currentBoardSize);
         this.mainGame.add(this.currentBoard);
         this.updateInformationLabel();
-        updateMainGame();
+        this.updateMainGame();
     }
 
 
@@ -78,7 +78,7 @@ public class GameLogic extends UniversalAdapter {
             case KeyEvent.VK_ENTER:
                 if (this.currentBoard.checkWin()) {
                     this.level++;
-                    resetAndInitializeNewBoard();
+                    this.resetAndInitializeNewBoard();
                 }
                 break;
             case KeyEvent.VK_ESCAPE:
@@ -138,7 +138,7 @@ public class GameLogic extends UniversalAdapter {
     public void actionPerformed(ActionEvent e) {
         if (this.currentBoard.checkWin()) {
             this.level++;
-            resetAndInitializeNewBoard();
+            this.resetAndInitializeNewBoard();
         }
     }
 
